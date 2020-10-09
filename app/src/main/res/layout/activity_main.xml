@@ -11,8 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </RelativeLayout>

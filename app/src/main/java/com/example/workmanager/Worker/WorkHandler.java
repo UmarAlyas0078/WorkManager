@@ -15,7 +15,6 @@ import androidx.work.WorkerParameters;
 import com.example.workmanager.Article.ArticleResponse;
 import com.example.workmanager.R;
 import com.example.workmanager.RetrofitOperations.RetrofitRequest;
-import com.example.workmanager.RetrofitOperations.RetrofitService;
 import com.example.workmanager.Utils.Constant;
 
 import retrofit2.Call;
@@ -26,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WorkHandler extends Worker {
     public static final String KEY_TASK_DESC = "key_task_desc";
-    private RetrofitRequest request;
 
     public WorkHandler(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -35,34 +33,34 @@ public class WorkHandler extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RetrofitRequest retrofitRequest = retrofit.create(RetrofitRequest.class);
         //String taskDesk = getInputData().getString(TASK_DESC);
         // notificationData("WorkManager", taskDesk);
-        // Data outputData = outPutData(KEY_TASK_DESC, "Hello There From Output");
+        Data outputData = outPutData(KEY_TASK_DESC, "Hello There From Output");
         getMoviesData(Constant.QUERY, Constant.API_KEY);
         return Result.success();
     }
 
     public void getMoviesData(String q, String apiKey) {
-        request.getResponse(q, apiKey).enqueue(new Callback<ArticleResponse>() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitRequest retrofitRequest = retrofit.create(RetrofitRequest.class);
+        Call<ArticleResponse> articleResponseCall = retrofitRequest.getResponse(q, apiKey);
+        articleResponseCall.enqueue(new Callback<ArticleResponse>() {
             @Override
             public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
                 if (response.isSuccessful()) {
-                    // notificationData("Message", "Helo Message");
                     ArticleResponse articleResponse = response.body();
-                    Log.d("TAG", "onResponse: " + response.body());
+                    Log.d("TAG", "onResponse: " + articleResponse.getArticles() + "Total Result:" + articleResponse.getTotalResults());
                 }
             }
 
             @Override
             public void onFailure(Call<ArticleResponse> call, Throwable t) {
+
             }
         });
-
     }
 
     private Data outPutData(String key, String outputMessage) {

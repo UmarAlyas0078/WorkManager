@@ -1,5 +1,7 @@
 package com.example.mvvmimplimentation.Data.Remote;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -26,6 +28,7 @@ public class ArticleRepository {
             public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
+                    Log.d(TAG, "onResponse: " + response.body().toString());
                 }
             }
 

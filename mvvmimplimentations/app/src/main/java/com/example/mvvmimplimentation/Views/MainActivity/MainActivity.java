@@ -1,6 +1,7 @@
 package com.example.mvvmimplimentation.Views.MainActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 if (articleResponse != null) {
                     progressBarprogresscircular.setVisibility(View.GONE);
                     List<Article> articles = articleResponse.getArticles();
+                    Log.d("TAG", "onChanged: "+articles);
                     articleArrayList.addAll(articles);
                     articleAdapter.notifyDataSetChanged();
 
