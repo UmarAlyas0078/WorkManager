@@ -1,5 +1,6 @@
 package com.example.workmanager.Room;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -11,9 +12,13 @@ import java.util.List;
 
 @Dao
 public interface ArticalDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void saveArtical(Article articalRoom);
+    void saveArtical(List<Article> articalRoom);
 
     @Query("SELECT * FROM Article")
-    List<Article> getArtical();
+    LiveData<List<Article>> getArtical();
+
+    @Query("Delete From Article")
+    void deleteData();
 }

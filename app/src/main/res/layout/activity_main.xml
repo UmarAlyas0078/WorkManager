@@ -23,4 +23,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_baseline_delete_outline_24"
+    android:layout_alignParentBottom="true"
+    android:id="@+id/button1"
+    android:onClick="deleteRoomData"
+    android:layout_margin="30dp"
+     />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_settings_ethernet_24"
+        android:layout_alignParentBottom="true"
+        android:onClick="callNetworkApi"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="30dp"
+        />
+
 </RelativeLayout>

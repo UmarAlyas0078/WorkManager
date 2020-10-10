@@ -29,8 +29,6 @@ import static com.example.workmanager.MainActivity.TASK_DESC;
 public class WorkHandler extends Worker {
     public static final String KEY_TASK_DESC = "key_task_desc";
     private static final String TAG = "WorkHandler";
-    public MutableLiveData<ArticleResponse> liveData = new MutableLiveData<>();
-
     public WorkHandler(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }

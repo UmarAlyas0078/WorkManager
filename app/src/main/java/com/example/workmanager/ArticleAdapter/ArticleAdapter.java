@@ -49,7 +49,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return articleList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setData(List<Article> articleList) {
+        this.articleList.clear();
+        this.articleList = articleList;
+        notifyDataSetChanged();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgViewCover;
         private TextView tvTitle;
         private TextView tvAuthorAnd_Published_At;
