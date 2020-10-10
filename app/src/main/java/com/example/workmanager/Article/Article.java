@@ -1,9 +1,15 @@
 package com.example.workmanager.Article;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity
 public class Article {
+    @PrimaryKey(autoGenerate = true)
+    int articalId;
     @SerializedName("author")
     @Expose
     private String author;
@@ -25,6 +31,23 @@ public class Article {
     @SerializedName("content")
     @Expose
     private String content;
+
+    public Article(String author, String title, String description, String url, String urlToImage, String publishedAt) {
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+    }
+
+    public int getArticalId() {
+        return articalId;
+    }
+
+    public void setArticalId(int articalId) {
+        this.articalId = articalId;
+    }
 
     public String getAuthor() {
         return author;
