@@ -36,9 +36,9 @@ public class WorkHandler extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String taskDesk = getInputData().getString(TASK_DESC);
+        String[] taskDesk = getInputData().getStringArray(TASK_DESC);
         Log.d(TAG, "doWork: " + taskDesk);
-        notificationData("WorkManager", taskDesk);
+        notificationData("WorkManager", String.valueOf(taskDesk));
         //Data outputData = outPutData(KEY_TASK_DESC, "Hello There From Output");
         // getMoviesData(Constant.QUERY, Constant.API_KEY);
         return Result.success();

@@ -113,18 +113,9 @@ public class MainActivity extends AppCompatActivity {
                     });*/
     }
 
-    private Data createInputData(List<Article> articles) {
-        /**
-         * Passing Data to Work Manager
-         */
-        oneTimeWorkRequest = new OneTimeWorkRequest.Builder(WorkHandler.class)
-                //.setInputData(createInputData(articleList))
-                .build();
-        WorkManager.getInstance().
-                enqueue(oneTimeWorkRequest);
-
+    private Data createInputData(ArticleResponse articles) {
         Data data = new Data.Builder()
-                .putStringArray(TASK_DESC, articles.toArray(new String[articles.size()]))
+               // .putStringArray(TASK_DESC, new String[]{articles})
                 .build();
         return data;
     }
@@ -141,13 +132,19 @@ public class MainActivity extends AppCompatActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             RetrofitRequest retrofitRequest = retrofit.create(RetrofitRequest.class);
-            Call<ArticleResponse> articleResponseCall = retrofitRequest.getResponse(Constant.QUERY, Constant.API_KEY);
+            final Call<ArticleResponse> articleResponseCall = retrofitRequest.getResponse(Constant.QUERY, Constant.API_KEY);
             articleResponseCall.enqueue(new Callback<ArticleResponse>() {
                 @Override
                 public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
                     if (response.isSuccessful()) {
+                        ArticleResponse articleResponse = response.body();
                         progressBarprogresscircular.setVisibility(View.INVISIBLE);
                         articalDatabase.articalDao().deleteData();
+                      /*  oneTimeWorkRequest = new OneTimeWorkRequest.Builder(WorkHandler.class)
+                                .setInputData(createInputData(articleResponse))
+                                .build();
+                        WorkManager.getInstance().
+                                enqueue(oneTimeWorkRequest);*/
                         articalDatabase.articalDao().saveArtical(response.body().getArticles());
                     }
 
